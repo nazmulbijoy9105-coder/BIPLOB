@@ -19,9 +19,12 @@ export function LegalView() {
           <ul className="space-y-2">
             {[
               "Right to hold your own passport",
-              "Right to regular rest hours",
-              "Right to medical treatment",
-              "Right to salary on time"
+              "Right to a safe & healthy work environment",
+              "Freedom from harassment and abuse",
+              "Right to regular rest hours & holidays",
+              "Right to medical treatment & insurance",
+              "Protection from unauthorized deductions",
+              "Right to receive salary on time"
             ].map((right, i) => (
               <li key={i} className="flex items-start gap-2 text-sm text-neutral-700">
                 <span className="text-emerald-500 mt-1">✓</span>

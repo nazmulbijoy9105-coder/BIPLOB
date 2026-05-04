@@ -64,7 +64,17 @@ export function Button({
   );
 }
 
-export function Badge({ children, className, variant = 'default' }: { children: ReactNode, className?: string, variant?: 'default' | 'success' | 'warning' | 'danger' }) {
+export function Badge({ 
+  children, 
+  className, 
+  variant = 'default',
+  onClick
+}: { 
+  children: ReactNode, 
+  className?: string, 
+  variant?: 'default' | 'success' | 'warning' | 'danger',
+  onClick?: () => void
+}) {
   const variants = {
     default: "bg-neutral-100 text-neutral-600",
     success: "bg-emerald-100 text-emerald-700",
@@ -73,7 +83,14 @@ export function Badge({ children, className, variant = 'default' }: { children: 
   };
 
   return (
-    <span className={cn("px-2 py-0.5 rounded-full text-xs font-semibold", variants[variant], className)}>
+    <span 
+      onClick={onClick}
+      className={cn(
+        "px-2 py-0.5 rounded-full text-xs font-semibold", 
+        variants[variant], 
+        className
+      )}
+    >
       {children}
     </span>
   );

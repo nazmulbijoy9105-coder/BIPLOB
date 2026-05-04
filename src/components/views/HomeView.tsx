@@ -7,12 +7,15 @@ import { AppMode } from "@/src/types";
 import { Card, Button, Badge } from "@/src/components/shared/UI";
 import { motion } from "motion/react";
 import { cn } from "@/src/lib/utils";
+import { VoiceInput } from "@/src/components/shared/VoiceInput";
+import { useState } from "react";
 
 interface HomeViewProps {
   setMode: (mode: AppMode) => void;
 }
 
 export function HomeView({ setMode }: HomeViewProps) {
+  const [salaryInput, setSalaryInput] = useState("");
   const stats = [
     { label: "Real Salaries", count: "1,240+", icon: TrendingUp, color: "text-blue-600" },
     { label: "Safe Agencies", count: "85", icon: ShieldCheck, color: "text-emerald-600" },
@@ -118,13 +121,22 @@ export function HomeView({ setMode }: HomeViewProps) {
 
           <div className="space-y-4">
             <div className="grid grid-cols-1 gap-3">
-              <input 
-                type="text" 
+              <VoiceInput 
+                value={salaryInput}
+                onChange={(e) => setSalaryInput(e.target.value)}
+                onVoiceResult={(t) => setSalaryInput(t)}
                 placeholder="Job, Location, and Salary... (e.g. Electrician, Qatar, 1500 QAR)"
                 className="w-full bg-white/10 border border-white/20 rounded-2xl p-4 text-white placeholder:text-white/40 focus:bg-white/20 transition-all outline-none"
               />
             </div>
-            <button className="w-full bg-emerald-500 hover:bg-emerald-400 text-white font-black py-4 rounded-2xl shadow-lg transition-all active:scale-95 flex items-center justify-center gap-2">
+            <button 
+              onClick={() => {
+                alert("Thank you! Your information has been submitted anonymously for verification. (ধন্যবাদ! আপনার তথ্যটি যাচাইয়ের জন্য বেনামে জমা দেওয়া হয়েছে।)");
+                setSalaryInput("");
+              }}
+              disabled={!salaryInput.trim()}
+              className="w-full bg-emerald-500 hover:bg-emerald-400 text-white font-black py-4 rounded-2xl shadow-lg transition-all active:scale-95 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
               Submit My Salary Info
               <ChevronRight size={20} />
             </button>

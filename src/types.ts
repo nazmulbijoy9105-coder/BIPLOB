@@ -43,6 +43,10 @@ export const SALARY_DATA: SalaryData[] = [
   { jobTitle: 'Plumber', location: 'UAE', range: '1500 – 2200 AED', verified: true, updatedAt: 'May 2024' },
   { jobTitle: 'Electrician', location: 'Qatar', range: '1800 – 2500 QAR', verified: true, updatedAt: 'March 2024' },
   { jobTitle: 'Garment Worker', location: 'Dhaka, Bangladesh', range: '12500 – 15000 BDT', verified: true, updatedAt: 'January 2024' },
+  { jobTitle: 'Heavy Driver', location: 'Saudi Arabia', range: '2200 – 3500 SAR', verified: true, updatedAt: 'May 2024' },
+  { jobTitle: 'Security Guard', location: 'UAE', range: '1800 – 2400 AED', verified: false, updatedAt: 'Feb 2024' },
+  { jobTitle: 'Housekeeper', location: 'Maldives', range: '350 – 550 USD', verified: true, updatedAt: 'May 2024' },
+  { jobTitle: 'Chef', location: 'Malaysia', range: '2500 – 4000 MYR', verified: true, updatedAt: 'April 2024' },
 ];
 
 export const TRAINING_COURSES: TrainingCourse[] = [
