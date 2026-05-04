@@ -31,10 +31,6 @@ export function HomeView({ setMode }: HomeViewProps) {
 
   return (
     <div className="space-y-8 pb-20">
-      <header className="space-y-1">
-        <h1 className="text-3xl font-black text-neutral-900 tracking-tight">Kemon Achen, Biplob? 👋</h1>
-      </header>
-
       {/* Stats Grid */}
       <div className="grid grid-cols-3 gap-3">
         {stats.map((stat, i) => (
