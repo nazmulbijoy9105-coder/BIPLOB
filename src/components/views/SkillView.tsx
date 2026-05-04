@@ -38,7 +38,7 @@ export function SkillView() {
                 </div>
                 <div className="p-4 flex-1">
                   <div className="flex items-center gap-2 mb-1">
-                    <Badge variant="secondary" className="text-[8px] py-0">{course.category}</Badge>
+                    <Badge variant="default" className="text-[8px] py-0">{course.category}</Badge>
                     <span className="text-[10px] text-neutral-400 flex items-center gap-1"><Clock size={10} /> {course.duration}</span>
                   </div>
                   <h3 className="font-bold text-neutral-900 leading-tight mb-1">{course.title}</h3>
@@ -52,7 +52,7 @@ export function SkillView() {
               </div>
               <div className="px-4 py-2 bg-neutral-50 border-t border-neutral-100 flex items-center justify-between">
                 <p className="text-[10px] font-bold text-neutral-500">Video + Voice Guide</p>
-                <Button size="sm" variant="link" className="p-0 h-auto text-emerald-600 font-bold hover:no-underline">Watch & Learn</Button>
+                <Button size="sm" variant="ghost" className="p-0 h-auto text-emerald-600 font-bold hover:no-underline">Watch & Learn</Button>
               </div>
             </Card>
           ))}

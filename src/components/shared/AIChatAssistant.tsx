@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { Send, X, Bot, User, Mic, MessageSquare } from "lucide-react";
+import { Send, X, Bot, User, Mic, MessageSquare, Volume2, Square } from "lucide-react";
 import { cn } from "@/src/lib/utils";
 import { motion, AnimatePresence } from "motion/react";
 import { VoiceButton } from "@/src/components/shared/VoiceButton";
@@ -16,6 +16,7 @@ export function AIChatAssistant() {
     { role: 'model', text: "Hello! I am Biplob. How can I help you today? (আমি বিপ্লব। আপনাকে কিভাবে সাহায্য করতে পারি?)" }
   ]);
   const [isLoading, setIsLoading] = useState(false);
+  const [speakingIndex, setSpeakingIndex] = useState<number | null>(null);
   const [knowledgeContext, setKnowledgeContext] = useState("");
   const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -35,6 +36,33 @@ export function AIChatAssistant() {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
   }, [messages]);
+
+  useEffect(() => {
+    return () => {
+      window.speechSynthesis.cancel();
+    };
+  }, []);
+
+  const speak = (text: string, index: number) => {
+    if (speakingIndex === index) {
+      window.speechSynthesis.cancel();
+      setSpeakingIndex(null);
+      return;
+    }
+
+    window.speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(text);
+    
+    // Detect if text contains Bangla characters
+    const hasBangla = /[\u0980-\u09FF]/.test(text);
+    utterance.lang = hasBangla ? 'bn-BD' : 'en-US';
+
+    utterance.onend = () => setSpeakingIndex(null);
+    utterance.onerror = () => setSpeakingIndex(null);
+    
+    setSpeakingIndex(index);
+    window.speechSynthesis.speak(utterance);
+  };
 
   const handleSend = async (text: string = input) => {
     if (!text.trim()) return;
@@ -144,12 +172,28 @@ export function AIChatAssistant() {
                     {m.role === 'user' ? <User size={16} /> : <Bot size={16} />}
                   </div>
                   <div className={cn(
-                    "max-w-[80%] p-3 text-sm leading-relaxed",
+                    "max-w-[80%] p-3 text-sm leading-relaxed relative group",
                     m.role === 'user' 
                       ? "bg-emerald-600 text-white rounded-2xl rounded-tr-none shadow-sm" 
                       : "bg-white text-neutral-800 rounded-2xl rounded-tl-none border border-neutral-200 shadow-sm"
                   )}>
                     {m.text}
+                    
+                    <button
+                      onClick={() => speak(m.text, i)}
+                      className={cn(
+                        "absolute -top-2 transition-all p-1.5 rounded-full shadow-lg border",
+                        m.role === 'user' ? "right-2 bg-emerald-500 border-emerald-400" : "left-2 bg-white border-neutral-100",
+                        speakingIndex === i ? "opacity-100 scale-100" : "opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-100"
+                      )}
+                      title={speakingIndex === i ? "Stop" : "Read Aloud"}
+                    >
+                      {speakingIndex === i ? (
+                        <Square size={10} className={cn(m.role === 'user' ? "text-white" : "text-emerald-600")} fill="currentColor" />
+                      ) : (
+                        <Volume2 size={10} className={cn(m.role === 'user' ? "text-white" : "text-emerald-600")} />
+                      )}
+                    </button>
                   </div>
                 </div>
               ))}

@@ -47,7 +47,7 @@ export function LanguageView() {
       <div className="space-y-4">
         <div className="flex items-center justify-between">
           <h2 className="text-xl font-bold text-neutral-900">Communication Modules</h2>
-          <Button variant="link" className="text-emerald-600 font-bold p-0">View All</Button>
+          <Button variant="ghost" className="text-emerald-600 font-bold p-0">View All</Button>
         </div>
         
         <Card className="p-0 border-none bg-emerald-900 text-white overflow-hidden">
