@@ -10,9 +10,13 @@ import { HomeView } from "./components/views/HomeView";
 import { JobView } from "./components/views/JobView";
 import { SkillView } from "./components/views/SkillView";
 import { SafetyView } from "./components/views/SafetyView";
+import { LanguageView } from "./components/views/LanguageView";
+import { LegalView } from "./components/views/LegalView";
+import { CountryGuideView } from "./components/views/CountryGuideView";
 import { AIChatAssistant } from "./components/shared/AIChatAssistant";
+import { QuickToolbar } from "./components/shared/QuickToolbar";
 import { motion, AnimatePresence } from "motion/react";
-import { Scale, Heart, Bell, User } from "lucide-react";
+import { Scale, Heart, Bell, User, FileText } from "lucide-react";
 import { cn } from "./lib/utils";
 
 export default function App() {
@@ -24,16 +28,19 @@ export default function App() {
       case 'JOBS': return <JobView />;
       case 'TRAINING': return <SkillView />;
       case 'FRAUD': return <SafetyView />;
-      case 'LANGUAGE': 
+      case 'LANGUAGE': return <LanguageView />;
+      case 'LEGAL': return <LegalView />;
+      case 'COUNTRY_GUIDE': return <CountryGuideView />;
+      case 'DOCS': 
         return (
           <div className="flex flex-col items-center justify-center p-20 text-center space-y-6">
-             <div className="w-24 h-24 bg-amber-50 rounded-full flex items-center justify-center text-amber-600">
-               <Scale size={48} />
+             <div className="w-24 h-24 bg-blue-50 rounded-full flex items-center justify-center text-blue-600">
+               <FileText size={48} />
              </div>
              <div className="space-y-2">
-               <h2 className="text-2xl font-bold">Language Learning</h2>
+               <h2 className="text-2xl font-bold">Document Guide</h2>
                <p className="text-neutral-500 max-w-xs mx-auto text-sm leading-relaxed">
-                 Communicative English, Arabic & Malay voice modules arriving in August 2024.
+                 Passport & Visa assistance modules arriving in June 2024. Use the Chatbot in the meantime.
                </p>
              </div>
              <button 
@@ -66,6 +73,10 @@ export default function App() {
 
       {/* Main Content Area */}
       <main className="flex-1 w-full max-w-2xl mx-auto px-4 py-8 lg:px-12 lg:py-16">
+        <div className="mb-6">
+           <QuickToolbar setMode={setMode} />
+        </div>
+
         <AnimatePresence mode="wait">
           <motion.div
             key={mode}

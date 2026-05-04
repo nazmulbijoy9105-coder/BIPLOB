@@ -114,8 +114,11 @@ export function AIChatAssistant() {
                   <Bot size={24} />
                 </div>
                 <div>
-                  <h3 className="font-bold">Biplob AI Assistant</h3>
-                  <p className="text-[10px] text-emerald-100 uppercase tracking-widest font-medium">Online (অনলাইন)</p>
+                  <h3 className="font-black text-lg leading-tight uppercase tracking-tighter">BIPLOB Assistant 🤖</h3>
+                  <div className="flex items-center gap-1">
+                    <div className="w-1.5 h-1.5 bg-emerald-300 rounded-full animate-pulse" />
+                    <span className="text-[9px] font-bold text-emerald-100 uppercase tracking-widest">Voice Interaction Enabled</span>
+                  </div>
                 </div>
               </div>
               <button 

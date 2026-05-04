@@ -1,4 +1,4 @@
-import { Search, MapPin, CheckCircle2, TrendingUp, Info } from "lucide-react";
+import { Search, MapPin, CheckCircle2, TrendingUp, Info, ArrowUpRight, DollarSign, Briefcase } from "lucide-react";
 import { Card, Badge, Button } from "@/src/components/shared/UI";
 import { SALARY_DATA } from "@/src/types";
 import { VoiceInput } from "@/src/components/shared/VoiceInput";
@@ -7,13 +7,13 @@ import { useState } from "react";
 export function JobView() {
   const [search, setSearch] = useState("");
   return (
-    <div className="space-y-6 pb-10">
+    <div className="space-y-6 pb-20">
       <header className="space-y-2">
-        <h1 className="text-2xl font-bold text-neutral-900 underline decoration-emerald-500 decoration-4 underline-offset-4">Verified Salaries</h1>
-        <p className="text-neutral-500">Real data from real workers. Updated May 2024.</p>
+        <h1 className="text-2xl font-black text-neutral-900 leading-tight tracking-tight">Verified Job Market 👷</h1>
+        <p className="text-neutral-500">Real salary data from real workers. Don't let agents lie to you.</p>
       </header>
 
-      {/* Search/Filter Bar */}
+      {/* Search Bar */}
       <VoiceInput 
         value={search}
         onChange={(e) => setSearch(e.target.value)}
@@ -21,60 +21,93 @@ export function JobView() {
         icon={<Search size={20} />}
       />
 
-      {/* Verified Banner */}
-      <div className="bg-emerald-50 border border-emerald-100 rounded-xl p-4 flex items-center gap-3">
-        <div className="p-2 bg-emerald-100 rounded-full text-emerald-600">
-          <CheckCircle2 size={24} />
+      {/* Trust Banner */}
+      <Card className="bg-emerald-950 text-white p-5 border-none rounded-3xl relative overflow-hidden">
+        <div className="relative z-10 space-y-3">
+          <div className="flex items-center gap-2">
+            <div className="p-1 bg-emerald-500 rounded-full">
+              <CheckCircle2 size={16} className="text-white" />
+            </div>
+            <span className="text-[10px] font-bold uppercase tracking-widest text-emerald-400">Verified by Biplob</span>
+          </div>
+          <h2 className="text-xl font-bold leading-snug">Average Construction Salary in Saudi Arabia decreased by 5% this month.</h2>
+          <Button variant="secondary" className="bg-white text-emerald-950 font-black text-xs h-10 px-6 rounded-xl">View Details</Button>
         </div>
-        <div>
-          <p className="text-sm font-bold text-emerald-900">Real Worker Data Guaranteed</p>
-          <p className="text-xs text-emerald-800/70">All salary ranges are verified via field surveys and worker submissions.</p>
-        </div>
-      </div>
+        <TrendingUp className="absolute -bottom-6 -right-6 text-white/5 w-40 h-40" />
+      </Card>
 
-      {/* Salary List */}
+      {/* Salary Overview Tabs */}
       <div className="space-y-4">
-        {SALARY_DATA.map((job, i) => (
-          <Card key={i} className="p-4 flex items-center justify-between group cursor-default">
-            <div className="space-y-1">
-              <div className="flex items-center gap-2">
-                <h3 className="font-bold text-neutral-900">{job.jobTitle}</h3>
-                {job.verified && (
-                  <Badge variant="success" className="flex gap-1 items-center">
-                    <CheckCircle2 size={10} /> Verified
-                  </Badge>
-                )}
-              </div>
-              <div className="flex items-center gap-3 text-sm text-neutral-500">
-                <div className="flex items-center gap-1">
-                  <MapPin size={14} /> {job.location}
-                </div>
-                <div>•</div>
-                <div>Updated {job.updatedAt}</div>
-              </div>
-            </div>
-            <div className="text-right">
-              <div className="text-lg font-black text-emerald-600">{job.range}</div>
-              <div className="text-[10px] text-neutral-400 uppercase tracking-widest font-bold">Monthly Range</div>
-            </div>
-          </Card>
-        ))}
-      </div>
-
-      {/* Contribution Call & Form */}
-      <Card className="bg-neutral-900 text-white p-6 border-none text-center space-y-4">
-        <div className="space-y-2">
-          <TrendingUp className="mx-auto text-emerald-400" size={32} />
-          <h3 className="text-lg font-bold">Help your brothers!</h3>
-          <p className="text-neutral-400 text-sm">Share your salary info anonymously to help others get fair pay.</p>
+        <div className="flex items-center justify-between">
+          <h3 className="font-black text-neutral-900 uppercase text-sm tracking-widest">Verified Salaries 💰</h3>
+          <Badge className="bg-neutral-100 text-neutral-600 border-none">Updated May 2024</Badge>
         </div>
         
-        <div className="space-y-3 pb-2 pt-2">
+        <div className="grid grid-cols-1 gap-3">
+          {SALARY_DATA.map((job, i) => (
+            <Card key={i} className="p-4 flex items-center justify-between group hover:border-emerald-200 transition-colors">
+              <div className="flex gap-4 items-center">
+                <div className="p-3 bg-neutral-50 border border-neutral-100 rounded-2xl text-neutral-400 group-hover:text-emerald-500 group-hover:bg-emerald-50 transition-colors">
+                  <Briefcase size={24} />
+                </div>
+                <div>
+                  <h4 className="font-bold text-neutral-900">{job.jobTitle}</h4>
+                  <p className="text-xs text-neutral-500 flex items-center gap-1">
+                    <MapPin size={12} /> {job.location}
+                  </p>
+                </div>
+              </div>
+              <div className="text-right">
+                <p className="text-sm font-black text-emerald-600">{job.range}</p>
+                <div className="flex items-center justify-end gap-1 text-[10px] text-neutral-400 font-bold uppercase">
+                  VERIFIED <CheckCircle2 size={10} className="text-emerald-500" />
+                </div>
+              </div>
+            </Card>
+          ))}
+        </div>
+      </div>
+
+      {/* Comparisons */}
+      <section className="space-y-4">
+        <h3 className="font-black text-neutral-900 uppercase text-sm tracking-widest">Location Comparison</h3>
+        <Card className="p-0 border-neutral-100 overflow-hidden shadow-sm">
+          <div className="p-4 bg-neutral-50 border-b border-neutral-100 flex items-center justify-between">
+            <span className="text-xs font-bold text-neutral-700">Driver (Basic)</span>
+            <ArrowUpRight size={16} className="text-neutral-400" />
+          </div>
+          <div className="p-4 space-y-3">
+            {[
+              { loc: "Dhaka, BD", pay: "৳ 15,000", progress: 30 },
+              { loc: "Riyadh, KSA", pay: "৳ 45,000", progress: 70 },
+              { loc: "Dubai, UAE", pay: "৳ 55,000", progress: 90 },
+            ].map((row, i) => (
+              <div key={i} className="space-y-1">
+                <div className="flex justify-between text-xs font-medium">
+                  <span className="text-neutral-500">{row.loc}</span>
+                  <span className="text-neutral-900 font-bold">{row.pay}</span>
+                </div>
+                <div className="h-2 w-full bg-neutral-100 rounded-full overflow-hidden">
+                  <div className="h-full bg-emerald-500 rounded-full" style={{ width: `${row.progress}%` }} />
+                </div>
+              </div>
+            ))}
+          </div>
+        </Card>
+      </section>
+
+      {/* Contribution Call */}
+      <Card className="bg-emerald-900 text-white p-6 border-none text-center space-y-4 rounded-3xl">
+        <TrendingUp className="mx-auto text-emerald-400" size={32} />
+        <h3 className="text-lg font-bold">Help your brothers!</h3>
+        <p className="text-emerald-100/70 text-sm">Share your salary info anonymously to help others get fair pay. We verify it with current field data.</p>
+        
+        <div className="space-y-3 pt-2">
            <VoiceInput 
              placeholder="Job, Location, and Salary... (e.g. Electrician, Qatar, 1500 QAR)"
-             className="bg-neutral-800 border-neutral-700 text-white"
+             className="bg-emerald-800 border-neutral-700 text-white placeholder:text-emerald-400"
            />
-           <Button className="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold">
+           <Button className="w-full bg-emerald-500 hover:bg-emerald-400 text-white font-black h-12 rounded-2xl shadow-xl shadow-emerald-900/40">
             Submit My Salary info
           </Button>
         </div>

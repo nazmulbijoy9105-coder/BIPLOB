@@ -11,8 +11,8 @@ export function Navigation({ currentMode, setMode }: NavigationProps) {
   const navItems = [
     { mode: 'HOME' as AppMode, label: 'Home', icon: Home },
     { mode: 'JOBS' as AppMode, label: 'Jobs', icon: Briefcase },
+    { mode: 'LANGUAGE' as AppMode, label: 'Learn', icon: Languages },
     { mode: 'TRAINING' as AppMode, label: 'Skills', icon: GraduationCap },
-    { mode: 'LANGUAGE' as AppMode, label: 'Languages', icon: Languages },
     { mode: 'FRAUD' as AppMode, label: 'Safety', icon: ShieldCheck },
   ];
 
