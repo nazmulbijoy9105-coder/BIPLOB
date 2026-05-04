@@ -9,6 +9,11 @@
 - **NO DEDUCTIONS:** Employers cannot deduct money for "Visa Costs", "Work Permit", or "Insurance". These are the employer's costs by law.
 - **OVERTIME:** Any work beyond 8 hours a day (or 48 hours a week) MUST be paid at overtime rates (usually 1.5x).
 
+## CURRENT MARKET ALERTS (MAY 2024)
+- **SAUDI ARABIA:** Construction sector salaries have seen a 5% temporary decrease in basic allowances due to the mid-year budget adjustments. Workers are advised to negotiate fixed overtime rates before starting new project cycles (Basic Salary ranges: 1100 - 1800 SAR).
+- **QATAR:** Minimum wage remains strictly 1000 QAR + 300 QAR food + 500 QAR housing. Do not accept anything less!
+- **UAE:** Wage Protection System (WPS) audits have increased. If your salary is delayed by even 3 days, report to MOHRE immediately.
+
 ## 3. CONTRACTS
 - **LANGUAGE:** You should have a copy of your contract in a language you understand (Bangla or English).
 - **JOB DESCRIPTION:** You cannot be forced to do work that is not in your contract (e.g., if you are hired as an Electrician, they cannot force you to be a domestic worker).

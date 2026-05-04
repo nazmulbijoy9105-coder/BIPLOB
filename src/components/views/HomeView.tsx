@@ -1,7 +1,7 @@
 import { 
   Briefcase, GraduationCap, Languages, ShieldCheck, TrendingUp, 
   AlertCircle, Phone, ArrowRight, Gavel, Globe, FileText, 
-  HeartPulse, ShieldAlert, BookOpen 
+  HeartPulse, ShieldAlert, BookOpen, TrendingDown, Coins, ChevronRight 
 } from "lucide-react";
 import { AppMode } from "@/src/types";
 import { Card, Button, Badge } from "@/src/components/shared/UI";
@@ -31,6 +31,10 @@ export function HomeView({ setMode }: HomeViewProps) {
 
   return (
     <div className="space-y-8 pb-20">
+      <header className="space-y-1">
+        <h1 className="text-3xl font-black text-neutral-900 tracking-tight">Probashi Life 👋</h1>
+      </header>
+
       {/* Stats Grid */}
       <div className="grid grid-cols-3 gap-3">
         {stats.map((stat, i) => (
@@ -42,19 +46,24 @@ export function HomeView({ setMode }: HomeViewProps) {
         ))}
       </div>
 
-      {/* Urgent Alert */}
-      <Card className="bg-red-50 border-red-200 p-4 flex items-start gap-4 shadow-sm group cursor-pointer hover:bg-red-100 transition-colors" onClick={() => setMode('FRAUD')}>
-        <div className="p-2 bg-red-500 rounded-2xl text-white shrink-0 shadow-lg shadow-red-200">
-          <AlertCircle size={24} />
+      {/* Salary Alert Card */}
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="bg-red-50 border border-red-100 p-5 rounded-[2rem] flex items-start gap-4 shadow-sm"
+      >
+        <div className="w-12 h-12 bg-red-100 rounded-2xl flex items-center justify-center text-red-600 shrink-0">
+          <TrendingDown size={24} />
         </div>
         <div className="space-y-1">
           <div className="flex items-center gap-2">
-             <h3 className="font-black text-red-900 uppercase text-xs tracking-tight">Urgent Fraud Warning!</h3>
+            <h3 className="font-bold text-red-900">Saudi Arabia Salary Alert</h3>
+            <Badge className="bg-red-600 text-white border-none text-[10px]">-5% This Month</Badge>
           </div>
-          <p className="text-xs text-red-800 font-medium leading-relaxed">3 agencies in Dhaka blacklisted this week. Check the safe list before paying any money.</p>
+          <p className="text-sm text-red-700 leading-snug">Average Construction Salary in Saudi Arabia decreased by 5% this month due to new seasonal labor regulations.</p>
+          <button className="text-xs font-black uppercase tracking-widest text-red-600 mt-2 hover:underline">View Details</button>
         </div>
-        <ArrowRight size={18} className="ml-auto text-red-400 group-hover:translate-x-1 transition-transform" />
-      </Card>
+      </motion.div>
 
       {/* Main Service Grid */}
       <div className="space-y-4">
@@ -85,6 +94,47 @@ export function HomeView({ setMode }: HomeViewProps) {
           ))}
         </div>
       </div>
+
+      {/* Help Your Brothers Section */}
+      <motion.section 
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        className="bg-emerald-900 rounded-[2.5rem] p-8 text-white shadow-2xl relative overflow-hidden"
+      >
+        <div className="absolute top-0 right-0 p-10 opacity-10 pointer-events-none">
+          <Coins size={120} />
+        </div>
+        
+        <div className="relative z-10 space-y-6">
+          <div className="space-y-2">
+            <h2 className="text-2xl font-black tracking-tight flex items-center gap-3">
+              Help your brothers! 🤝
+            </h2>
+            <p className="text-emerald-100/80 text-sm leading-relaxed max-w-md">
+              Share your salary info anonymously to help others get fair pay. We verify it with current field data to prevent exploitation.
+            </p>
+          </div>
+
+          <div className="space-y-4">
+            <div className="grid grid-cols-1 gap-3">
+              <input 
+                type="text" 
+                placeholder="Job, Location, and Salary... (e.g. Electrician, Qatar, 1500 QAR)"
+                className="w-full bg-white/10 border border-white/20 rounded-2xl p-4 text-white placeholder:text-white/40 focus:bg-white/20 transition-all outline-none"
+              />
+            </div>
+            <button className="w-full bg-emerald-500 hover:bg-emerald-400 text-white font-black py-4 rounded-2xl shadow-lg transition-all active:scale-95 flex items-center justify-center gap-2">
+              Submit My Salary Info
+              <ChevronRight size={20} />
+            </button>
+          </div>
+          
+          <p className="text-[10px] text-emerald-300/50 font-bold uppercase tracking-widest text-center">
+            Your identity remains 100% private. Always.
+          </p>
+        </div>
+      </motion.section>
 
       {/* Support Section */}
       <Card className="bg-neutral-900 rounded-3xl p-6 text-white relative overflow-hidden shadow-2xl">
