@@ -1,0 +1,13 @@
+{
+  "name": "Biplob Worker System",
+  "description": "A comprehensive support ecosystem for Bangladeshi migrant and local workers featuring job intelligence, language learning, legal aid, and skill development.",
+  "requestFramePermissions": [
+    "microphone"
+  ],
+  "majorCapabilities": [
+    "Voice Support",
+    "AI Chatbot",
+    "Real Salary Data",
+    "Skill Training Marketplace"
+  ]
+}
