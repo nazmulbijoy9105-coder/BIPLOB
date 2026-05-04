@@ -4,7 +4,9 @@ import { cn } from "@/src/lib/utils";
 import { motion, AnimatePresence } from "motion/react";
 import { VoiceButton } from "@/src/components/shared/VoiceButton";
 import { VoiceInput } from "@/src/components/shared/VoiceInput";
-import { AppMode } from "@/src/types";
+import { GoogleGenAI } from "@google/genai";
+
+const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY || "" });
 
 export function AIChatAssistant() {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,7 +16,21 @@ export function AIChatAssistant() {
   ]);
   const [isLoading, setIsLoading] = useState(false);
   const [speakingIndex, setSpeakingIndex] = useState<number | null>(null);
+  const [knowledgeContext, setKnowledgeContext] = useState("");
   const scrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // Load grounding context from server
+    fetch("/api/knowledge")
+      .then(res => res.json())
+      .then(data => {
+        if (Array.isArray(data)) {
+          const context = data.map((d: any) => d.content).join("\n\n");
+          setKnowledgeContext(context);
+        }
+      })
+      .catch(err => console.error("Knowledge load failed", err));
+  }, []);
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -52,34 +68,50 @@ export function AIChatAssistant() {
   const handleSend = async (text: string = input) => {
     if (!text.trim() || isLoading) return;
     
-    const userMsg = { role: 'user' as const, text: text.trim() };
-    const currentMessages = [...messages, userMsg];
-    setMessages(currentMessages);
+    const userPrompt = text.trim();
+    const userMsg = { role: 'user' as const, text: userPrompt };
+    setMessages(prev => [...prev, userMsg]);
     setInput("");
     setIsLoading(true);
 
     try {
-      const response = await fetch("/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          message: text,
-          history: messages.map(m => ({
-            role: m.role,
-            text: m.text
-          }))
-        })
+      const history = messages.map(m => ({
+        role: m.role,
+        parts: [{ text: m.text }]
+      }));
+
+      const systemInstruction = `You are Biplob (বিপ্লব), the ultimate Digital Companion for Bangladeshi Migrant Workers. 
+      Your mission is to protect, guide, and empower workers throughout their journey.
+
+      CRITICAL GUIDELINES:
+      1. KNOWLEDGE GROUNDING: Use the provided Knowledge Base below as your primary source of truth.
+      2. BILINGUAL RESPONSE: Respond in a mix of simple English and clear Bangla (Unicode). 
+      3. PROTECTIVE TONE: Always warn workers against scams, middlemen (Dalals), and unauthorized payments.
+      4. COMPREHENSIVE ANSWERS: Provide detailed, broad, and deep explanations for labor rights, visa processes, and safety. Don't provide short one-liners.
+      5. EMERGENCY: If a worker is in danger or hasn't been paid, give specific steps (Contact Embassy, BMET, or Legal Aid).
+
+      KNOWLEDGE BASE:
+      ---
+      ${knowledgeContext}
+      ---
+      
+      Begin your response addressing the worker as "Bhai" (Brother).`;
+
+      const response = await ai.models.generateContent({
+        model: "gemini-3-flash-preview",
+        contents: [...history, { role: "user", parts: [{ text: userPrompt }] }],
+        config: {
+          systemInstruction: systemInstruction,
+        }
       });
 
-      if (!response.ok) throw new Error("Server error");
-      
-      const data = await response.json();
-      setMessages(prev => [...prev, { role: 'model', text: data.text }]);
+      const aiText = response.text || "I apologize, but I am unable to generate a response at this time. (আমি দুঃখিত, এই মুহূর্তে উত্তর দিতে পারছি না।)";
+      setMessages(prev => [...prev, { role: 'model', text: aiText }]);
     } catch (err) {
       console.error("Chat error:", err);
       setMessages(prev => [...prev, { 
         role: 'model', 
-        text: "I am having trouble connecting to the network. Please check your internet and try again. (আপনার ইন্টারনেটে সমস্যা হচ্ছে, অনুগ্রহ করে আবার চেষ্টা করুন।)" 
+        text: "I am having trouble connecting to my brain right now. Please check your internet and try again. (আমার মস্তিষ্কের সাথে সংযোগ করতে সমস্যা হচ্ছে। অনুগ্রহ করে একটু পরে আবার চেষ্টা করুন।)" 
       }]);
     } finally {
       setIsLoading(false);
