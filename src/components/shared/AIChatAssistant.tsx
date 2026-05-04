@@ -120,49 +120,81 @@ export function AIChatAssistant() {
 
   return (
     <>
-      {/* Centered Floating Voice/Chat Trigger */}
-      <div className="fixed bottom-24 left-1/2 -translate-x-1/2 z-50">
-        <div className="flex items-center gap-3">
-           <VoiceButton onTranscript={(t) => {
-             setIsOpen(true);
-             handleSend(t);
-           }} />
-           
+      {/* Sophisticated Floating Trigger */}
+      <div className="fixed bottom-24 right-6 lg:right-10 z-50">
+        <motion.div 
+          className="flex flex-col items-end gap-3"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+        >
            <button 
              onClick={() => setIsOpen(true)}
-             className="bg-neutral-900 text-white px-6 py-3 rounded-full flex items-center gap-2 shadow-xl border-2 border-white hover:bg-neutral-800 transition-all font-bold"
+             className={cn(
+               "group relative flex items-center justify-center w-14 h-14 lg:w-16 lg:h-16 rounded-full shadow-2xl transition-all duration-500",
+               isOpen ? "bg-white text-emerald-600 rotate-90" : "bg-emerald-600 text-white hover:scale-110 active:scale-95"
+             )}
            >
-             <MessageSquare size={20} className="text-emerald-400" />
-             Help
+             {isOpen ? <X size={28} /> : (
+               <div className="relative">
+                 <Bot size={28} className="group-hover:animate-pulse" />
+                 <span className="absolute -top-1 -right-1 flex h-3 w-3">
+                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                   <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500 border border-white"></span>
+                 </span>
+               </div>
+             )}
+             
+             {/* Text tooltip that appears on hover */}
+             {!isOpen && (
+               <div className="absolute right-full mr-4 whitespace-nowrap bg-neutral-900 text-white px-4 py-2 rounded-xl text-sm font-bold opacity-0 group-hover:opacity-100 transition-all shadow-xl pointer-events-none translate-x-2 group-hover:translate-x-0">
+                 Ask Biplob 👋
+               </div>
+             )}
            </button>
-        </div>
+           
+           <VoiceButton 
+             onTranscript={(t) => {
+               setIsOpen(true);
+               handleSend(t);
+             }} 
+             className="w-12 h-12 shadow-lg"
+           />
+        </motion.div>
       </div>
 
       <AnimatePresence>
         {isOpen && (
           <motion.div 
-            initial={{ opacity: 0, scale: 0.9, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.9, y: 20 }}
-            className="fixed inset-0 lg:inset-auto lg:bottom-28 lg:right-4 lg:w-[450px] lg:h-[600px] bg-white z-[60] lg:rounded-3xl shadow-2xl flex flex-col border border-neutral-100"
+            initial={{ opacity: 0, scale: 0.95, y: 40, filter: "blur(10px)" }}
+            animate={{ opacity: 1, scale: 1, y: 0, filter: "blur(0px)" }}
+            exit={{ opacity: 0, scale: 0.95, y: 40, filter: "blur(10px)" }}
+            transition={{ type: "spring", damping: 25, stiffness: 200 }}
+            className="fixed inset-0 lg:inset-auto lg:bottom-44 lg:right-10 lg:w-[420px] lg:h-[650px] bg-white z-[60] lg:rounded-[2.5rem] shadow-[0_32px_64px_-16px_rgba(0,0,0,0.2)] flex flex-col border border-neutral-100 overflow-hidden"
           >
-            {/* Header */}
-            <div className="bg-emerald-600 p-4 text-white flex justify-between items-center lg:rounded-t-3xl">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center border border-white/30">
+            {/* Header - Premium Glassmorphism style */}
+            <div className="bg-white/80 backdrop-blur-xl p-6 text-neutral-900 border-b border-neutral-100 flex justify-between items-center relative overflow-hidden">
+              <div className="absolute top-0 right-0 p-8 opacity-5">
+                <Bot size={120} />
+              </div>
+              
+              <div className="flex items-center gap-4 relative z-10">
+                <div className="w-12 h-12 bg-emerald-600 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-emerald-200">
                   <Bot size={24} />
                 </div>
                 <div>
-                  <h3 className="font-black text-lg leading-tight uppercase tracking-tighter">BIPLOB Assistant 🤖</h3>
-                  <div className="flex items-center gap-1">
-                    <div className="w-1.5 h-1.5 bg-emerald-300 rounded-full animate-pulse" />
-                    <span className="text-[9px] font-bold text-emerald-100 uppercase tracking-widest">Voice Interaction Enabled</span>
+                  <h3 className="font-black text-xl leading-tight tracking-tight">Biplob AI</h3>
+                  <div className="flex items-center gap-1.5 mt-0.5">
+                    <span className="relative flex h-2 w-2">
+                       <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                       <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                    </span>
+                    <span className="text-[10px] font-bold text-neutral-400 uppercase tracking-widest">Active & Secure</span>
                   </div>
                 </div>
               </div>
               <button 
                 onClick={() => setIsOpen(false)}
-                className="p-2 hover:bg-white/10 rounded-full transition-colors"
+                className="p-2.5 hover:bg-neutral-100 rounded-2xl transition-colors text-neutral-400 lg:hidden"
                 title="Close"
               >
                 <X size={24} />
@@ -170,31 +202,25 @@ export function AIChatAssistant() {
             </div>
 
             {/* Messages */}
-            <div ref={scrollRef} className="flex-1 overflow-y-auto p-4 space-y-4 bg-neutral-50 scrollbar-hide">
+            <div ref={scrollRef} className="flex-1 overflow-y-auto p-6 space-y-6 bg-white scrollbar-hide">
               {messages.map((m, i) => (
                 <div key={i} className={cn(
-                  "flex items-end gap-2",
-                  m.role === 'user' ? "flex-row-reverse" : "flex-row"
+                  "flex flex-col",
+                  m.role === 'user' ? "items-end" : "items-start"
                 )}>
                   <div className={cn(
-                    "w-8 h-8 rounded-full flex items-center justify-center shrink-0 border",
-                    m.role === 'user' ? "bg-emerald-100 border-emerald-200 text-emerald-600" : "bg-neutral-100 border-neutral-200 text-neutral-400"
-                  )}>
-                    {m.role === 'user' ? <User size={16} /> : <Bot size={16} />}
-                  </div>
-                  <div className={cn(
-                    "max-w-[80%] p-3 text-sm leading-relaxed relative group",
+                    "max-w-[85%] p-4 text-sm leading-relaxed relative group shadow-sm transition-all animate-in fade-in slide-in-from-bottom-2",
                     m.role === 'user' 
-                      ? "bg-emerald-600 text-white rounded-2xl rounded-tr-none shadow-sm" 
-                      : "bg-white text-neutral-800 rounded-2xl rounded-tl-none border border-neutral-200 shadow-sm"
+                      ? "bg-neutral-900 text-white rounded-3xl rounded-tr-none px-5 py-3.5" 
+                      : "bg-neutral-50 text-neutral-800 rounded-3xl rounded-tl-none border border-neutral-100"
                   )}>
                     {m.text}
                     
                     <button
                       onClick={() => speak(m.text, i)}
                       className={cn(
-                        "absolute -top-2 transition-all p-1.5 rounded-full shadow-lg border",
-                        m.role === 'user' ? "right-2 bg-emerald-500 border-emerald-400" : "left-2 bg-white border-neutral-100",
+                        "absolute -top-3 transition-all p-2 rounded-full shadow-lg border backdrop-blur-md",
+                        m.role === 'user' ? "right-4 bg-emerald-500 border-emerald-400" : "left-4 bg-white border-neutral-100",
                         speakingIndex === i ? "opacity-100 scale-100" : "opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-100"
                       )}
                       title={speakingIndex === i ? "Stop" : "Read Aloud"}
@@ -206,37 +232,45 @@ export function AIChatAssistant() {
                       )}
                     </button>
                   </div>
+                  <span className="text-[9px] font-bold uppercase tracking-widest text-neutral-300 mt-2 px-2">
+                    {m.role === 'user' ? "You" : "Biplob AI"}
+                  </span>
                 </div>
               ))}
               {isLoading && (
-                <div className="flex items-center gap-2 text-neutral-400 text-xs italic p-2">
-                  <div className="flex gap-1">
-                    <span className="w-1 h-1 bg-neutral-300 rounded-full animate-bounce" />
-                    <span className="w-1 h-1 bg-neutral-300 rounded-full animate-bounce [animation-delay:0.2s]" />
-                    <span className="w-1 h-1 bg-neutral-300 rounded-full animate-bounce [animation-delay:0.4s]" />
+                <div className="flex items-center gap-3 text-neutral-400 text-[10px] font-bold uppercase tracking-widest p-2">
+                  <div className="flex gap-1.5">
+                    <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-bounce [animation-duration:0.6s]" />
+                    <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-bounce [animation-delay:0.2s] [animation-duration:0.6s]" />
+                    <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-bounce [animation-delay:0.4s] [animation-duration:0.6s]" />
                   </div>
-                  Biplob is thinking...
+                  Thinking...
                 </div>
               )}
             </div>
 
             {/* Input Area */}
-            <div className="p-4 bg-white border-t border-neutral-100 flex items-center gap-2 lg:rounded-b-3xl">
-              <VoiceInput 
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-                onVoiceResult={(t) => handleSend(t)}
-                placeholder="Ask Biplob anything... (যাই হোক প্রশ্ন করুন)"
-                className="bg-neutral-100 border-none"
-              />
-              <button 
-                onClick={() => handleSend()}
-                disabled={isLoading || !input.trim()}
-                className="p-2.5 bg-emerald-600 text-white rounded-xl hover:bg-emerald-700 disabled:opacity-50 transition-colors shadow-md"
-              >
-                <Send size={18} />
-              </button>
+            <div className="p-6 bg-white border-t border-neutral-100 lg:rounded-b-[2.5rem]">
+              <div className="bg-neutral-50 rounded-[2rem] p-2 flex items-center gap-1 border border-neutral-100 focus-within:border-emerald-200 focus-within:ring-4 focus-within:ring-emerald-50 transition-all shadow-inner">
+                <VoiceInput 
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  onKeyDown={(e) => e.key === 'Enter' && handleSend()}
+                  onVoiceResult={(t) => handleSend(t)}
+                  placeholder="Ask anything..."
+                  className="bg-transparent border-none flex-1 shadow-none"
+                />
+                <button 
+                  onClick={() => handleSend()}
+                  disabled={isLoading || !input.trim()}
+                  className="p-3.5 bg-emerald-600 text-white rounded-full hover:bg-emerald-700 disabled:opacity-50 transition-all shadow-lg active:scale-95 shrink-0"
+                >
+                  <Send size={18} />
+                </button>
+              </div>
+              <p className="text-[9px] text-center text-neutral-300 mt-4 font-bold uppercase tracking-tighter">
+                Biplob AI is optimized for Bangladeshi Worker Guides
+              </p>
             </div>
           </motion.div>
         )}

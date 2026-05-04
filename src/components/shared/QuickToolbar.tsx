@@ -31,14 +31,14 @@ export function QuickToolbar({ setMode }: QuickToolbarProps) {
             key={i}
             onClick={tool.action}
             className={cn(
-              "flex items-center gap-2 bg-white px-3 py-2 rounded-xl border transition-all shrink-0",
+              "flex items-center gap-2 bg-white px-4 py-2.5 rounded-2xl border transition-all shrink-0 font-bold",
               isVoiceNavActive && tool.label === "Voice Help" 
-                ? "border-emerald-500 ring-2 ring-emerald-500/20 bg-emerald-50" 
-                : "border-neutral-100 shadow-sm hover:border-emerald-200"
+                ? "border-emerald-500 ring-4 ring-emerald-500/10 bg-emerald-50 text-emerald-700" 
+                : "border-neutral-100 shadow-sm hover:border-emerald-200 hover:shadow-md text-neutral-600"
             )}
           >
             <tool.icon size={16} className={cn(tool.color, isVoiceNavActive && tool.label === "Voice Help" && "animate-pulse")} />
-            <span className="text-[10px] font-bold text-neutral-700 whitespace-nowrap uppercase tracking-tight">{tool.label}</span>
+            <span className="text-[10px] uppercase tracking-widest">{tool.label}</span>
           </button>
         ))}
       </div>

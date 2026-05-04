@@ -31,12 +31,8 @@ export function HomeView({ setMode }: HomeViewProps) {
 
   return (
     <div className="space-y-8 pb-20">
-      <header className="space-y-2">
-        <div className="flex items-center gap-2">
-          <h1 className="text-3xl font-black text-neutral-900 tracking-tight">Kemon Achen, Biplob? 👋</h1>
-          <Badge className="bg-emerald-100 text-emerald-700 animate-pulse">Live Updates</Badge>
-        </div>
-        <p className="text-neutral-500 text-sm font-medium italic">"The only verified companion for Bangladeshi Workers."</p>
+      <header className="space-y-1">
+        <h1 className="text-3xl font-black text-neutral-900 tracking-tight">Kemon Achen, Biplob? 👋</h1>
       </header>
 
       {/* Stats Grid */}
