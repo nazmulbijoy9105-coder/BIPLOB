@@ -205,32 +205,40 @@ export function AIChatAssistant() {
             <div ref={scrollRef} className="flex-1 overflow-y-auto p-6 space-y-6 bg-white scrollbar-hide">
               {messages.map((m, i) => (
                 <div key={i} className={cn(
-                  "flex flex-col",
+                  "flex flex-col group",
                   m.role === 'user' ? "items-end" : "items-start"
                 )}>
                   <div className={cn(
-                    "max-w-[85%] p-4 text-sm leading-relaxed relative group shadow-sm transition-all animate-in fade-in slide-in-from-bottom-2",
-                    m.role === 'user' 
-                      ? "bg-neutral-900 text-white rounded-3xl rounded-tr-none px-5 py-3.5" 
-                      : "bg-neutral-50 text-neutral-800 rounded-3xl rounded-tl-none border border-neutral-100"
+                    "flex items-center gap-3 w-full",
+                    m.role === 'user' ? "flex-row-reverse" : "flex-row"
                   )}>
-                    {m.text}
+                    <div className={cn(
+                      "max-w-[85%] p-4 text-sm leading-relaxed relative shadow-sm transition-all animate-in fade-in slide-in-from-bottom-2",
+                      m.role === 'user' 
+                        ? "bg-neutral-900 text-white rounded-3xl rounded-tr-none px-5 py-3.5" 
+                        : "bg-neutral-50 text-neutral-800 rounded-3xl rounded-tl-none border border-neutral-100"
+                    )}>
+                      {m.text}
+                    </div>
                     
-                    <button
-                      onClick={() => speak(m.text, i)}
-                      className={cn(
-                        "absolute -top-3 transition-all p-2 rounded-full shadow-lg border backdrop-blur-md",
-                        m.role === 'user' ? "right-4 bg-emerald-500 border-emerald-400" : "left-4 bg-white border-neutral-100",
-                        speakingIndex === i ? "opacity-100 scale-100" : "opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-100"
-                      )}
-                      title={speakingIndex === i ? "Stop" : "Read Aloud"}
-                    >
-                      {speakingIndex === i ? (
-                        <Square size={10} className={cn(m.role === 'user' ? "text-white" : "text-emerald-600")} fill="currentColor" />
-                      ) : (
-                        <Volume2 size={10} className={cn(m.role === 'user' ? "text-white" : "text-emerald-600")} />
-                      )}
-                    </button>
+                    {m.role === 'model' && (
+                      <button
+                        onClick={() => speak(m.text, i)}
+                        className={cn(
+                          "transition-all p-2.5 rounded-2xl border bg-white shadow-sm hover:shadow-md hover:scale-110 active:scale-95 shrink-0",
+                          speakingIndex === i 
+                            ? "opacity-100 scale-100 text-emerald-600 border-emerald-200 bg-emerald-50 ring-4 ring-emerald-50" 
+                            : "opacity-40 group-hover:opacity-100 text-neutral-400 border-neutral-100"
+                        )}
+                        title={speakingIndex === i ? "Stop" : "Read Aloud"}
+                      >
+                        {speakingIndex === i ? (
+                          <Square size={14} fill="currentColor" />
+                        ) : (
+                          <Volume2 size={14} />
+                        )}
+                      </button>
+                    )}
                   </div>
                   <span className="text-[9px] font-bold uppercase tracking-widest text-neutral-300 mt-2 px-2">
                     {m.role === 'user' ? "You" : "Biplob AI"}
