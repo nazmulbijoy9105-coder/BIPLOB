@@ -1,21 +1,27 @@
-# Job Requirements & Conditions
+# TRADE-BASED JOB REQUIREMENTS & SKILLS
 
-## Pre-Departure Requirements
-- Valid Passport (at least 6 months validity left)
-- BMET Registration
-- Police Clearance Certificate
-- Medical fitness certificate from approved clinics (GAMCA for Gulf countries)
-- Visa stamping and orientation training completion certificate
+## PLUMBER (প্লাম্বার)
+- **Skills:** Pipe fitting, leak repair, PVC welding, fixture installation (Sink, Toilet).
+- **Tools:** Pipe wrench, hacksaw, thread seal tape, plunger.
+- **Safety:** Eye protection, gloves, water-resistant shoes.
 
-## Common Job Conditions (Middle East)
-- Housing: Usually provided by the employer (shared labor camps)
-- Transportation: Provided to and from workplace
-- Contracts: Usually 2 years, non-transferable without employer consent
-- Work hours: Standard 8 hours + overtime, but can go up to 12 hours
-- Passport storage: It is ILLEGAL for employers to keep your passport in Malaysia and Oman, but common in some other Gulf countries despite laws. Keep a digital scan.
+## ELECTRICIAN (ইলেক্ট্রিশিয়ান)
+- **Skills:** Wiring, socket installation, switchboard repair, circuit breaker maintenance.
+- **Tools:** Multi-meter, wire stripper, tester, insulation tape.
+- **Safety:** Rubber-soled boots (Non-conductive), insulated tools, never work on live wires alone.
 
-## Salary Benchmarks (Example)
-- Construction Labor (Saudi Arabia): 800 - 1000 SAR + Food
-- Electrician (Qatar): 1200 - 1500 QAR
-- Domestic Worker (Jordan): 300 - 400 USD
-- Caregiver (European Countries): Higher, but Requires IELTS and Certification
+## CONSTRUCTION WORKER (রাজমিস্ত্রি / হেল্পার)
+- **Skills:** Brick laying, cement mixing, shuttering, plastering.
+- **Tools:** Trowel, spirit level, measuring tape, hammer.
+- **Safety:** Helmet (Hard hat), safety boots, high-visibility vest.
+
+## DRIVER (ড্রাইভার)
+- **Requirements:** International license or converting local license. Good eyes.
+- **Knowledge:** Traffic signs (Arabic/English), basic engine check (Oil, Water, Tyres).
+- **Behavior:** Punctuality, cleaning the car, polite communication.
+
+---
+# SKILL TRAINING IN BANGLADESH
+- **TTC (Technical Training Center):** Government centers for learning trades.
+- **NSDA:** National Skills Development Authority certifications follow Level 1 to Level 4.
+- **Experience:** 2+ years of experience in Bangladesh usually doubles the starting salary abroad.

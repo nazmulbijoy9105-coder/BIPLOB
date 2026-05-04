@@ -1,20 +1,32 @@
-# PRE-CONDITION FOR MIGRATION (BANGLADESH)
-1. Valid Passport (Minimum 6 months validity)
-2. BMET Registration (Fingerprint)
-3. Medical Clearance from GAMCA approved centers
-4. Valid Work Visa / E-Visa
-5. Pre-departure Orientation (PDO) Certificate
-6. Manpower Clearance Card (Smart Card)
+# COUNTRY-SPECIFIC MIGRATION GUIDES
 
-# JOB CONDITIONS IN MIDDLE EAST (COMMON)
-- Average Working Hours: 8-10 hours / day
-- Overtime: Must be paid as per local labor law (usually 1.25x or 1.5x)
-- Accommodation: Usually provided by employer or allowance given
-- Health Insurance: Employer responsibility in Saudi Arabia, UAE, Qatar.
-- Contract Period: Usually 2 years, renewable.
+## SAUDI ARABIA (KSA)
+- **Minimum Wage:** Starting from 900-1200 SAR for basic labor, but varies by skill.
+- **Rules:** Very strict religious laws. No public music or food during Ramadan days.
+- **Exit Re-entry:** Requires an "Exit Re-entry Visa" to travel back home.
+- **Kafala System:** Recently reformed; workers can change jobs under specific conditions (after 1 year or if salary is delayed).
 
-# WARNING SIGNS OF FRAUD
-- Asking for payment via personal mobile banking (bKash/Nagad) instead of office bank accounts.
-- Offering "Direct Job" on a "Visit Visa". This is ILLEGAL.
-- No official RL (Recruiting License) number from BMET.
-- Charging more than the government-fixed migration cost.
+## UNITED ARAB EMIRATES (UAE)
+- **Minimum Wage:** Around 1200-1500 AED for basic labor.
+- **Housing:** Usually provided in Labor Camps (Sonapur, etc.). Must be air-conditioned.
+- **Rights:** Strong Ministry of Human Resources (MOHRE). Call 800-60 if salary is delayed.
+
+## MALAYSIA
+- **Minimum Wage:** 1500 MYR (Revised 2022).
+- **Levy:** Government levy is usually paid by the employer.
+- **Climate:** Tropical/Rainy. Work continues in rain unless dangerous.
+
+## QATAR
+- **Minimum Wage:** 1000 QAR + 300 QAR (food) + 500 QAR (housing) if not provided.
+- **Heat Law:** In summer, outdoor work is banned between 10:00 AM and 3:30 PM.
+- **Exit:** No exit permit required for most sectors.
+
+---
+# MIGRATION PROCESS (BMET)
+1. **PASSPORT:** Apply with correct name and NID.
+2. **REGISTRATION:** Register with BMET (Ami Probashi app).
+3. **TRAINING:** Complete 3-day PDO (Pre-Departure Orientation).
+4. **MEDICAL:** Must pass GAMCA/Medical at verified centers.
+5. **FINGERPRINT:** Give fingerprint at local BMET office.
+6. **VISA STAMPING:** Through the agency.
+7. **SMART CARD:** Final clearance from BMET.

@@ -5,37 +5,22 @@ import { motion, AnimatePresence } from "motion/react";
 import { VoiceButton } from "@/src/components/shared/VoiceButton";
 import { VoiceInput } from "@/src/components/shared/VoiceInput";
 import { AppMode } from "@/src/types";
-import { GoogleGenAI } from "@google/genai";
-
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY || "" });
 
 export function AIChatAssistant() {
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState<{ role: 'user' | 'model', text: string }[]>([
-    { role: 'model', text: "Hello! I am Biplob. How can I help you today? (আমি বিপ্লব। আপনাকে কিভাবে সাহায্য করতে পারি?)" }
+    { role: 'model', text: "Hello! I am Biplob (বিপ্লব). I am here to help you find jobs, learn skills, and stay safe. (আমি বিপ্লব। আপনাকে কাজ খুঁজতে, দক্ষতা শিখতে এবং নিরাপদ থাকতে সাহায্য করতে এসেছি।)" }
   ]);
   const [isLoading, setIsLoading] = useState(false);
   const [speakingIndex, setSpeakingIndex] = useState<number | null>(null);
-  const [knowledgeContext, setKnowledgeContext] = useState("");
   const scrollRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    // Load grounding context
-    fetch("/api/knowledge")
-      .then(res => res.json())
-      .then(data => {
-        const context = data.map((d: any) => d.content).join("\n\n");
-        setKnowledgeContext(context);
-      })
-      .catch(err => console.error("Knowledge load failed", err));
-  }, []);
 
   useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
-  }, [messages]);
+  }, [messages, isLoading]);
 
   useEffect(() => {
     return () => {
@@ -55,7 +40,7 @@ export function AIChatAssistant() {
     
     // Detect if text contains Bangla characters
     const hasBangla = /[\u0980-\u09FF]/.test(text);
-    utterance.lang = hasBangla ? 'bn-BD' : 'en-US';
+    utterance.lang = hasBangla ? 'bn-BD' : 'en-GB';
 
     utterance.onend = () => setSpeakingIndex(null);
     utterance.onerror = () => setSpeakingIndex(null);
@@ -65,42 +50,36 @@ export function AIChatAssistant() {
   };
 
   const handleSend = async (text: string = input) => {
-    if (!text.trim()) return;
+    if (!text.trim() || isLoading) return;
     
-    const userMsg = { role: 'user' as const, text };
+    const userMsg = { role: 'user' as const, text: text.trim() };
     const currentMessages = [...messages, userMsg];
     setMessages(currentMessages);
     setInput("");
     setIsLoading(true);
 
     try {
-      const history = messages.map(m => ({
-        role: m.role === 'model' ? 'model' : 'user',
-        parts: [{ text: m.text }]
-      }));
-
-      const systemInstruction = `You are Biplob, the Bangladeshi Worker Assistant. 
-      Use the following verified knowledge base to answer user questions about jobs, migration, and rights. 
-      If information is not in the knowledge base, state that you are answering based on general guidelines but recommend verifying with a safe agency.
-      KNOWLEDGE BASE:
-      ---
-      ${knowledgeContext}
-      ---
-      Respond in simple English and Bangla. Always be protective of workers.`;
-
-      const response = await ai.models.generateContent({
-        model: "gemini-3-flash-preview",
-        contents: [...history, { role: "user", parts: [{ text }] }],
-        config: {
-          systemInstruction: systemInstruction,
-        }
+      const response = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          message: text,
+          history: messages.map(m => ({
+            role: m.role,
+            text: m.text
+          }))
+        })
       });
 
-      setMessages(prev => [...prev, { role: 'model', text: response.text || "I couldn't generate a response." }]);
+      if (!response.ok) throw new Error("Server error");
+      
+      const data = await response.json();
+      setMessages(prev => [...prev, { role: 'model', text: data.text }]);
     } catch (err) {
+      console.error("Chat error:", err);
       setMessages(prev => [...prev, { 
         role: 'model', 
-        text: "I am having trouble connecting right now. Please try again later. (সংযোগ করতে সমস্যা হচ্ছে। অনুগ্রহ করে একটু পরে আবার চেষ্টা করুন।)" 
+        text: "I am having trouble connecting to the network. Please check your internet and try again. (আপনার ইন্টারনেটে সমস্যা হচ্ছে, অনুগ্রহ করে আবার চেষ্টা করুন।)" 
       }]);
     } finally {
       setIsLoading(false);
